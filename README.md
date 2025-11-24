@@ -132,12 +132,16 @@ Your website has **2 pages**:
 your-repo/
 ├── index.html          ← Home page (main page)
 ├── contact.html        ← Contact page
-├──styles.css           ← Visual styling (colors, fonts, spacing)
+├── styles.css          ← Visual styling (colors, fonts, spacing)
 ├── script.js           ← Interactive features (scroll effects, animations)
-└── images/             ← All Custom images used on the site(create such a folder if not already there)
-    ├── logo-image.png
-    ├── team-member1-photo.jpg
-    └── ...
+└── images/             ← All images, GIFs, and animations
+    ├── compsci.webp    ← Computer Science stock image (already included!)
+    ├── electronics.jpg ← Electronics stock image (already included!)
+    ├── mechEng.webp    ← Mechanical Engineering stock image (already included!)
+    ├── fin.avif        ← Finance stock image (already included!)
+    ├── logo.png        ← (Add your custom images here)
+    ├── team-photo.jpg  ← (Add your team photos here)
+    └── animation.gif   ← (Add your GIFs/animations here)
 ```
 
 ### Navigation Structure
@@ -150,6 +154,8 @@ The navbar has 4 options:
 ---
 
 ## Common Tasks
+
+> **📦 Stock Images Available:** Your repository already includes 4 professional stock images in the `images/` folder that you can use right away for the Capabilities section! See section 4.1 below for details.
 
 ### 1. Changing Text Content
 
@@ -208,8 +214,247 @@ Update these to your actual contact details.
 **Image tips:**
 - Use `.jpg` for photos
 - Use `.png` for graphics with transparency
+- Use `.webp` for better quality and smaller file sizes
 - Keep file sizes under 500KB for fast loading
 - Use descriptive names: `team-photo-2024.jpg` not `IMG_1234.jpg`
+
+---
+
+### 4.1 Using Stock Images Already in the Repository
+
+Your repository already has some stock images in the `images/` folder:
+- `compsci.webp` - Computer Science illustration
+- `electronics.jpg` - Electronics/circuits image
+- `mechEng.webp` - Mechanical Engineering illustration
+- `fin.avif` - Finance/business image
+
+**How to use these in your website:**
+
+```html
+<!-- For Capabilities section -->
+<div class="capability-card">
+    <img src="images/electronics.jpg" alt="Electronics Engineering">
+    <h3>Electronics</h3>
+    <p>Your description here</p>
+</div>
+
+<div class="capability-card">
+    <img src="images/compsci.webp" alt="Computer Science">
+    <h3>Computer Science</h3>
+    <p>Your description here</p>
+</div>
+
+<div class="capability-card">
+    <img src="images/mechEng.webp" alt="Mechanical Engineering">
+    <h3>Mechanical Engineering</h3>
+    <p>Your description here</p>
+</div>
+
+<div class="capability-card">
+    <img src="images/fin.avif" alt="Management and Finance">
+    <h3>Mix-up</h3>
+    <p>Your description here</p>
+</div>
+```
+
+---
+
+### 4.2 Adding Animations and GIFs
+
+GIFs and animations make your website more engaging! Here's how to add them:
+
+#### Adding a GIF
+**Step 1:** Add your GIF file to the `images/` folder
+- Example: `loading-animation.gif`, `arrow-bounce.gif`
+
+**Step 2:** Use it in HTML just like a regular image:
+```html
+<!-- Simple GIF -->
+<img src="images/loading-animation.gif" alt="Loading animation">
+
+<!-- GIF as a background element -->
+<div class="hero-section">
+    <img src="images/tech-animation.gif" alt="Technology animation" class="background-gif">
+    <h1>Welcome to Orbital Systems</h1>
+</div>
+```
+
+#### Where to Use Animations/GIFs
+1. **Hero section** - Eye-catching intro animation
+2. **Loading indicators** - While content loads
+3. **Section dividers** - Between different parts of the page
+4. **Button hover effects** - Small animated icons
+5. **Background elements** - Subtle moving patterns
+
+#### Example Placements:
+
+**1. Hero Section Animation:**
+```html
+<section class="hero">
+    <img src="images/space-animation.gif" alt="Space animation" class="hero-bg-animation">
+    <h1>Designed to discover.</h1>
+    <p>We turn simple ideas into technologies</p>
+</section>
+```
+
+**2. Loading/Scroll Animation:**
+```html
+<!-- This can appear when scrolling to a new section -->
+<div class="scroll-indicator">
+    <img src="images/arrow-down.gif" alt="Scroll down">
+</div>
+```
+
+**3. Capability Cards with Animated Icons:**
+```html
+<div class="capability-card">
+    <img src="images/gear-spinning.gif" alt="Engineering icon" class="capability-icon">
+    <h3>Mechanical Engineering</h3>
+    <p>Building the future</p>
+</div>
+```
+
+**4. Decorative Elements:**
+```html
+<!-- Floating/moving decorative elements -->
+<div class="decorative-element">
+    <img src="images/particles.gif" alt="Particle animation">
+</div>
+```
+
+#### Styling Animations with CSS
+
+Add these styles to your `styles.css` to control how animations appear:
+
+```css
+/* Control size and position of background animations */
+.hero-bg-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3; /* Make it subtle */
+    z-index: -1; /* Keep it behind text */
+}
+
+/* Animated icons in capability cards */
+.capability-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+/* Scroll indicator animation */
+.scroll-indicator {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.scroll-indicator img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Decorative floating elements */
+.decorative-element {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    width: 200px;
+    opacity: 0.5;
+}
+```
+
+#### Tips for Using Animations:
+
+✅ **DO:**
+- Keep GIF file sizes small (under 1MB if possible)
+- Use animations sparingly - too many can be overwhelming
+- Make sure animations enhance, not distract from content
+- Test on mobile devices - some animations might be too large
+- Consider using `.webp` format for animations (smaller file size)
+
+❌ **DON'T:**
+- Use flashing or rapidly blinking animations (accessibility issue)
+- Add animations that play automatically with sound
+- Use too many moving elements at once
+- Make critical information depend on an animation
+- Forget to add alt text for accessibility
+
+#### Converting Videos to GIFs
+
+If you have a video you want to use as a GIF:
+
+1. **Online Tools:**
+   - [ezgif.com](https://ezgif.com/video-to-gif) - Convert video to GIF
+   - [cloudconvert.com](https://cloudconvert.com/) - Format converter
+   - [gifski.app](https://gif.ski/) - High-quality GIF converter
+
+2. **Optimization Tools:**
+   - [ezgif.com/optimize](https://ezgif.com/optimize) - Reduce GIF file size
+   - [gifcompressor.com](https://gifcompressor.com/) - Compress GIFs
+
+#### Modern Animation Alternative: CSS Animations
+
+Instead of GIFs, you can use CSS for smoother, smaller-file animations:
+
+```css
+/* Floating animation for decorative elements */
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Fade-in animation when scrolling */
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Spinning icon */
+.spin {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+```
+
+Apply these animations in HTML:
+```html
+<div class="floating">
+    <img src="images/cloud.png" alt="Cloud">
+</div>
+
+<div class="capability-card fade-in">
+    <img src="images/gear.png" alt="Settings" class="spin">
+    <h3>Engineering</h3>
+</div>
+```
 
 ### 5. Changing Colors
 
@@ -402,4 +647,4 @@ Happy updating! 🎉
 
 ---
 
-*Last updated: November 2025*
+*Last updated: November 2024*
