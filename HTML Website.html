@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>''
+    <meta charset="UTF-8">
+    <title>Orbital Systems | Interactive R&D</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root { --orange: #FF6B00; --black: #050505; }
+        body { margin: 0; background: var(--black); color: white; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        
+        canvas { position: fixed; top: 0; right: 0; z-index: 0; width: 50vw !important; height: 100vh !important; }
+
+        .container { position: relative; z-index: 1; width: 50%; padding: 5rem 10%; box-sizing: border-box; }
+        
+        header h1 { font-size: 3rem; line-height: 1; margin-bottom: 2rem; }
+        .orange { color: var(--orange); }
+
+        .sector-list { margin-top: 4rem; }
+        .sector-item { 
+            padding: 2rem; 
+            border-left: 2px solid #222; 
+            margin-bottom: 1rem; 
+            transition: 0.3s; 
+            cursor: pointer
+            ;
+        }
+        .sector-item { 
+    padding: 2rem; 
+    border-left: 2px solid #222; 
+    margin-bottom: 1rem; 
+    transition: 0.3s; 
+    /* ADD THE CURSOR HERE */
+    cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='white' stroke='%23FF6B00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/svg%3E"), pointer;
+}
+        .sector-item:hover { 
+            border-left: 2px solid var(--orange); 
+            background: rgba(255, 107, 0, 0.05); 
+        }
+        .sector-item h2 { margin: 0; text-transform: uppercase; letter-spacing: 2px; font-size: 1.2rem; }
+        .sector-item p { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
+
+        .mission { margin-top: 4rem; font-size: 1.1rem; color: #ccc; line-height: 1.8; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div style="letter-spacing: 5px; font-size: 0.7rem; margin-bottom: 18px;">ORBITAL SYSTEMS</div>
+            <h1>Science can <br><span class="orange">fix any issue.</span></h1>
+            <p>We focus on multidisciplinary R&D engineering and prototypes. We create useful and amazing tools with exact work and clever ideas.</p>
+        </header>
+
+        <div class="sector-list">
+            <div class="sector-item" onmouseenter="changeShape('cs')" onmouseleave="resetShape()">
+                <h2>Computer Science</h2>
+                <p>Development of algorithms and the systems architecture. Turning idea into softwares and shaping digital environments to the needs.</p>
+            </div>
+            <div class="sector-item" onmouseenter="changeShape('electronics')" onmouseleave="resetShape()">
+                <h2>Electronics</h2>
+                <p>Precision hardware and incorporation of embedded tools. Development of ideas into physical reality.</p>
+            </div>
+            <div class="sector-item" onmouseenter="changeShape('mechanical')" onmouseleave="resetShape()">
+                <h2>Mechanical Engineering</h2>
+                <p>High-performance prototypes and structural growth. Ensuring R&D engineering spine is intact with reality of physics.</p>
+            </div>
+        </div>
+
+        <div class="mission">
+            Our business setup protects quality, safety, and steady progress from quick-money pressures. 
+            <strong>No management hassle. Full focus on R&D.</strong>
+        </div>
+    </div>
+
+    <script>
+        // THREE.JS SCENE SETUP
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, (window.innerWidth/2) / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth / 2, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // GEOMETRIES
+        const mainGroup = new THREE.Group();
+        scene.add(mainGroup);
+
+        const createCS = () => new THREE.Points(new THREE.SphereGeometry(2, 32, 32), new THREE.PointsMaterial({ color: 0xFF6B00, size: 0.05 }));
+        const createElec = () => new THREE.Mesh(new THREE.TorusKnotGeometry(1.2, 0.4, 100, 16), new THREE.MeshBasicMaterial({ color: 0xFF6B00, wireframe: true }));
+        const createMech = () => new THREE.Mesh(new THREE.OctahedronGeometry(2, 0), new THREE.MeshBasicMaterial({ color: 0xFF6B00, wireframe: true }));
+        const createDefault = () => new THREE.Mesh(new THREE.IcosahedronGeometry(2, 1), new THREE.MeshBasicMaterial({ color: 0x333333, wireframe: true }));
+
+        let currentMesh = createDefault();
+        mainGroup.add(currentMesh);
+        camera.position.z = 5;
+
+        // INTERACTION LOGIC
+        function changeShape(type) {
+            mainGroup.remove(currentMesh);
+            if(type === 'cs') currentMesh = createCS();
+            if(type === 'electronics') currentMesh = createElec();
+            if(type === 'mechanical') currentMesh = createMech();
+            mainGroup.add(currentMesh);
+        }
+
+        function resetShape() {
+            mainGroup.remove(currentMesh);
+            currentMesh = createDefault();
+            mainGroup.add(currentMesh);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            mainGroup.rotation.y += 0.005;
+            mainGroup.rotation.x += 0.003;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = (window.innerWidth/2) / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth/2, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
